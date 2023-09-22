@@ -11,3 +11,8 @@ To build do:
 ```
 git clone https://github.com/aikooo7/Hasher && cd Hasher && cmake -S . -B build && cmake --build build
 ```
+Then for run do:
+
+```
+./build/Hasher
+```
