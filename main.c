@@ -68,7 +68,7 @@ int main() {
   fclose(file);
 
   // Open a file to append the hash result
-  file = fopen("../hashes.txt", "a");
+  file = fopen("hashes.txt", "a");
 
   // Write the filename and hash to the output file
   fprintf(file, "Filename: %s | Hash: ", "hashes.txt");
