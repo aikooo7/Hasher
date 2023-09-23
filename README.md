@@ -9,7 +9,7 @@ This is a fun project that I also made since I hash files a lot and prefer to do
 To build do:
 
 ```
-git clone https://github.com/aikooo7/Hasher && cd Hasher && cmake -S . -B build && cmake --build build
+git clone https://github.com/aikooo7/Hasher && cd Hasher && cmake -S . -B build && cmake --build build && sudo make install -C build
 ```
 Then for run do:
 
