@@ -16,6 +16,7 @@ int main() {
   char buffer[BUFSIZ];
   unsigned char hashed[BUFSIZ];
   size_t bytesRead;
+  char filename[BUFSIZ];
 
   EVP_MD_CTX *md_ctx;
   const EVP_MD *md;
@@ -37,15 +38,13 @@ int main() {
   printf("What is the file you want to hash? ");
 
   // Read user input
-  if (fgets(input, sizeof(input), stdin) == NULL) {
-    perror("input");
+  if (fgets(filename, sizeof(filename), stdin) == NULL) {
+    perror("filename");
     exit(-1);
   }
 
   // Remove newline character from input
-  input[strlen(input) - 1] = '\0';
-
-  const char *filename = input;
+  filename[strlen(filename) - 1] = '\0';
 
   // Open the file for reading in binary mode
   FILE *file = fopen(filename, "rb");
@@ -67,24 +66,59 @@ int main() {
   // Close the file
   fclose(file);
 
-  // Open a file to append the hash result
-  file = fopen("hashes.txt", "a");
 
-  // Write the filename and hash to the output file
-  fprintf(file, "Filename: %s | Hash: ", "hashes.txt");
+  // Prints the hash
   printf("Your hash is: ");
   for (int i = 0; i < md_len; i++) {
     printf("%02x", hashed[i]);
-    fprintf(file, "%02x", hashed[i]);
   }
   printf("\n");
-  fprintf(file, "\n");
+
+  bool not_answered = true;
+  // Loop to ask the user if he wants to write the hash in the file.
+  while (not_answered) {
+    printf("Want to write the hash to a file? ");
+
+    // Read user input
+    if (fgets(input, sizeof(input), stdin) == NULL) {
+      perror("input");
+      exit(-1);
+    }
+
+    // Convert input to lowercase for case-insensitive comparison
+    for (int i = 0; i < strlen(input); i++) {
+      input[i] = tolower(input[i]);
+    }
+
+    // Remove newline character from input
+    input[strlen(input) - 1] = '\0';
+
+    if (strcmp("yes", input) == 0) {
+      file = fopen("hashes.txt", "a");
+
+      fprintf(file, "Filename: %s | Hash: ", filename);
+      for (int i = 0; i < md_len; i++) {
+        fprintf(file, "%02x", hashed[i]);
+      }
+      fprintf(file, "\n");
+      printf("Wrote to the file...\n");
+      not_answered = false;
+    } else if (strcmp("no", input) == 0) {
+      printf("Not writting to the file...\n");
+      not_answered = false;
+    } else {
+      printf("Incorrect input, write either yes or no.\n");
+    }
+  }
+
+  // Write the filename and hash to the output file
+
 
   // Cleanup: Free resources
   EVP_MD_CTX_free(md_ctx);
   EVP_cleanup();
 
-  bool not_answered = true;
+  not_answered = true;
 
   // Loop to ask if the user wants to hash another file
   while (not_answered) {
