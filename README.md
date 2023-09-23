@@ -14,5 +14,5 @@ git clone https://github.com/aikooo7/Hasher && cd Hasher && cmake -S . -B build 
 Then for run do:
 
 ```
-./build/Hasher
+Hasher
 ```
