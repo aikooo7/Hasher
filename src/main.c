@@ -1,14 +1,14 @@
+#include <ctype.h>
+#include <openssl/evp.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
-#include <openssl/evp.h>
-#include <ctype.h>
-#include <stdbool.h>
 
+#include <ctype.h>
+#include <openssl/evp.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <openssl/evp.h>
-#include <ctype.h>
 
 int main() {
   // Variables definition
@@ -66,7 +66,6 @@ int main() {
   // Close the file
   fclose(file);
 
-
   // Prints the hash
   printf("Your hash is: ");
   for (int i = 0; i < md_len; i++) {
@@ -112,7 +111,6 @@ int main() {
   }
 
   // Write the filename and hash to the output file
-
 
   // Cleanup: Free resources
   EVP_MD_CTX_free(md_ctx);
