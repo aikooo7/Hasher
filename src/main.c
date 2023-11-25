@@ -103,7 +103,7 @@ int main() {
       printf("Wrote to the file...\n");
       not_answered = false;
     } else if (strcmp("no", input) == 0) {
-      printf("Not writting to the file...\n");
+      printf("Not writing to the file...\n");
       not_answered = false;
     } else {
       printf("Incorrect input, write either yes or no.\n");
